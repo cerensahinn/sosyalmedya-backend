@@ -67,6 +67,31 @@ CREATE DATABASE sosyalmedya;
 -- CREATE USER sosyal WITH ENCRYPTED PASSWORD 'sifre';
 -- GRANT ALL PRIVILEGES ON DATABASE sosyalmedya TO sosyal;
 ```
+---
+
+### 2️⃣ `application.yml` Yapılandırma Örneği
+
+Uygulamanın çalışması için gerekli veritabanı ve port ayarlarını aşağıdaki şekilde düzenleyin:
+
+```yaml
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/sosyalMedya
+    username: postgres
+    password: postgres123.
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+server:
+  port: 8080
+
+```
+
 ## 👤 Hazır ADMIN
 
 | Alan | Değer |
