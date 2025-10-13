@@ -239,3 +239,21 @@ Projeyi Postman üzerinde test ederken aşağıdaki sıralamayı takip edin:
 > 💡 Koleksiyon akışı şu dosyalarla birlikte gelir:
 - postman/SosyalMedya.postman_collection.json
 - postman/SosyalMedya.postman_environment.json
+---
+
+## 🧠 Varsayımlar & Kısıtlar
+
+**Varsayımlar**
+- Uygulamada **Spring Security** kullanılmamıştır; kimlik doğrulama tamamen özel olarak yazılmıştır.
+- Her istek için kimlik doğrulama bilgisi, **`Authorization: Token <token>`** başlığında gönderilmelidir.
+- **Admin** kullanıcısı veritabanında önceden kayıtlıdır ve testlerde kullanılabilir.
+- **PostgreSQL** veritabanı varsayılan port (**5432**) üzerinden yerel ortamda çalışmaktadır. Uzaktan bağlantı için `application.yml` dosyasında güncelleme yapılabilir.
+
+---
+
+**Kısıtlar**
+- **Dosya yükleme** (örneğin gönderiye fotoğraf ekleme) işlemleri yalnızca örnek amaçlıdır; büyük boyutlu veya bulut tabanlı dosya depolama sistemi kullanılmamıştır.
+- Uygulamada **çok fazla istek ** veya **şifre deneme koruması** gibi güvenlik sınırları yoktur.
+- Veritabanı yapısı, geliştirme kolaylığı için **otomatik güncellenmektedir** (`ddl-auto: update`). 
+- Bazı hata durumlarında sistem genel hata kodu (**500 Internal Server Error**) dönebilir.
+
