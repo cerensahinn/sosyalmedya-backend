@@ -237,5 +237,5 @@ Projeyi Postman üzerinde test ederken aşağıdaki sıralamayı takip edin:
 4️⃣ **Logout** – Oturumu sonlandır
 
 > 💡 Koleksiyon akışı şu dosyalarla birlikte gelir:
-> - `SosyalMedya.postman_collection.json`
-> - `SosyalMedya.postman_environment.json`
+- postman/SosyalMedya.postman_collection.json
+- postman/SosyalMedya.postman_environment.json
