@@ -1,6 +1,6 @@
 # 📱 Sosyal Medya Servisi (Java 17 + Spring Boot 3 + PostgreSQL)
 
-Bu proje, kullanıcıların **gönderi paylaşabildiği**, **beğeni** ve **yorum** yapabildiği bir sosyal medya platformunun **backend (sunucu tarafı)** uygulamasıdır.  
+Bu proje, kullanıcıların **gönderi paylaşabildiği**, **beğeni** ve **yorum** yapabildiği bir sosyal medya platformunun **backend ** uygulamasıdır.  
 Uygulama, **REST API** mimarisi ile geliştirilmiştir ve veritabanında saklanan **Token tabanlı kimlik doğrulama** mekanizmasıyla güvenli erişim sağlar.  
 Spring Boot’un sağladığı modüler yapı sayesinde servisler katmanlı olarak ayrılmıştır (Controller → Service → Repository).
 
