@@ -34,3 +34,22 @@ Amaç; **Spring Boot ile gerçek dünya CRUD operasyonları**, **DTO kullanımı
 | Build | Maven |
 | IDE | IntelliJ IDEA |
 | Test / API | Postman |
+
+---
+
+## 💻 Önkoşullar (Requirements)
+
+Projeyi çalıştırmadan önce aşağıdaki araçların sisteminizde kurulu olduğundan emin olun:
+
+| Araç | Minimum Sürüm | Açıklama |
+|--|--|--|
+| **Java JDK** | 17+ | Spring Boot 3 için zorunludur. |
+| **Maven** | 3.8+ | Projeyi build etmek ve bağımlılıkları yönetmek için gereklidir. |
+| **PostgreSQL** | 13+ | Veritabanı olarak kullanılır. |
+| **IntelliJ IDEA / VS Code** | - | Geliştirme ortamı (IDE). |
+| **Postman** | - | API testleri için kullanılır. |
+
+> 💡 Not:  
+> Java ve Maven kurulumlarını terminalde `java -version` ve `mvn -version` komutlarıyla doğrulayabilirsiniz.  
+> PostgreSQL için `psql --version` komutu kullanılabilir.
+
