@@ -10,7 +10,6 @@ public interface KullaniciRepository extends JpaRepository<Kullanici, Long> {
     Optional<Kullanici> findByEmail(String email);
     boolean existsByEmail(String email);
 
-    // ✅ kullanıcı adı sorguları
     Optional<Kullanici> findByKullaniciAdi(String kullaniciAdi);
     boolean existsByKullaniciAdi(String kullaniciAdi);
 }
