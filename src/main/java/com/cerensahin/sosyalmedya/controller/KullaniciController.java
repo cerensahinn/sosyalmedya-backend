@@ -20,13 +20,11 @@ public class KullaniciController {
         this.kullaniciService = kullaniciService;
     }
 
-    // 🔹 GET /api/users/{id}
     @GetMapping("/users/{id}")
     public KullaniciGorunum getById(@PathVariable Long id) {
         return kullaniciService.getById(id);
     }
 
-    // 🔹 PUT /api/users/me/password
     @PutMapping("/users/me/password")
     public Map<String, Object> changePassword(
             @RequestAttribute("aktifKullanici") Kullanici aktif,
@@ -34,14 +32,12 @@ public class KullaniciController {
         return kullaniciService.changePassword(aktif, body);
     }
 
-    // 🔹 DELETE /api/users/me → Kendi hesabını sil
     @Transactional
     @DeleteMapping("/users/me")
     public Map<String, Object> deleteMe(@RequestAttribute("aktifKullanici") Kullanici aktif) {
         return kullaniciService.deleteMe(aktif);
     }
 
-    // 🔹 DELETE /api/admin/users/{id} → Admin başkasını siler
     @Transactional
     @DeleteMapping("/admin/users/{id}")
     public Map<String, Object> adminDelete(
@@ -50,7 +46,6 @@ public class KullaniciController {
         return kullaniciService.adminDelete(aktif, id);
     }
 
-    // 🔹 GET /api/admin/users → Admin tüm kullanıcıları listeler
     @GetMapping("/admin/users")
     public List<KullaniciGorunum> adminListAll(
             @RequestAttribute("aktifKullanici") Kullanici aktif) {
