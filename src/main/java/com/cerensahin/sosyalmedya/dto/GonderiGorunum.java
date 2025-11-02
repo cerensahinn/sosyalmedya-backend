@@ -3,13 +3,13 @@ package com.cerensahin.sosyalmedya.dto;
 import com.cerensahin.sosyalmedya.entity.Gonderi;
 import java.time.LocalDateTime;
 
-public class GonderiGorunum { //Response DTO’dur
+public class GonderiGorunum { 
     private Long id;
     private Long kullaniciId;
     private String icerik;
     private String medyaUrl;
-    private String medyaTipi; // "IMAGE" | "VIDEO"
-    private String medyaBase64; // YENİ
+    private String medyaTipi; 
+    private String medyaBase64; 
     private LocalDateTime olusturmaZamani;
 
     public GonderiGorunum() { }
@@ -22,9 +22,6 @@ public class GonderiGorunum { //Response DTO’dur
         this.medyaTipi = g.getMedyaTipi().name();
         this.medyaBase64 = g.getMedyaBase64();
         this.olusturmaZamani = g.getOlusturmaZamani();
-        //veritabanından gelen Gonderi nesnesindeki bilgileri çekip bu DTO’ya kopyalar.
-        //Bu sınıfın amacı, Gonderi entity’sini doğrudan dışarı açmadan,
-        //güvenli ve sade bir şekilde kullanıcıya “post bilgisi” döndürmektir.
 
     }
 

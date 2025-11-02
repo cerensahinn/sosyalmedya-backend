@@ -37,7 +37,6 @@ public class ErisimTokeni {
         this.aktif = true;
     }
 
-    // Getters and Setters
     public Long getId() { return id; }
     public Kullanici getKullanici() { return kullanici; }
     public String getDeger() { return deger; }

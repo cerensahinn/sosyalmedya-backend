@@ -13,7 +13,7 @@ import java.util.Map;
 public class YorumExceptionHandler {
 
     @ExceptionHandler(YorumBulunamadiException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND) // 404
+    @ResponseStatus(HttpStatus.NOT_FOUND) 
     public Map<String, Object> handleNotFound(YorumBulunamadiException ex) {
         return Map.of(
                 "mesaj", ex.getMessage(),
@@ -23,7 +23,7 @@ public class YorumExceptionHandler {
     }
 
     @ExceptionHandler(YorumSilmeYetkiYokException.class)
-    @ResponseStatus(HttpStatus.FORBIDDEN) // 403
+    @ResponseStatus(HttpStatus.FORBIDDEN) 
     public Map<String, Object> handleForbidden(YorumSilmeYetkiYokException ex) {
         return Map.of(
                 "mesaj", ex.getMessage(),
@@ -33,7 +33,7 @@ public class YorumExceptionHandler {
     }
 
     @ExceptionHandler(YorumEkleGonderiBulunamadiException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND) // 404
+    @ResponseStatus(HttpStatus.NOT_FOUND) 
     public Map<String, Object> handleAddPostNotFound(YorumEkleGonderiBulunamadiException ex) {
         return Map.of(
                 "mesaj", ex.getMessage(),

@@ -26,12 +26,9 @@ public class KimlikServiceImpl implements KimlikService {
     private final KullaniciRepository kullaniciRepository;
     private final ErisimTokeniRepository erisimTokeniRepository;
 
-    // 🔧 Token format sabitleri
     private static final String AUTH_HEADER_PREFIX = "Token ";
-    private static final int MIN_TOKEN_LEN = 40;                 // Base64 URL-safe 32 byte ≈ 43-44 char
+    private static final int MIN_TOKEN_LEN = 40;                
     private static final String ALLOWED_TOKEN_REGEX = "^[A-Za-z0-9_-]+$";
-    // İsteğe bağlı zorunlu token öneki (kurumsal kullanım için). Gerekirse aç:
-    // private static final String REQUIRED_TOKEN_PREFIX = "TK_";
 
     public KimlikServiceImpl(KullaniciRepository kullaniciRepository,
                              ErisimTokeniRepository erisimTokeniRepository) {
@@ -121,7 +118,6 @@ public class KimlikServiceImpl implements KimlikService {
         if (authorizationHeader == null || !authorizationHeader.startsWith(AUTH_HEADER_PREFIX)) {
             throw new TokenGecersizException(null);
         }
-
 
         String deger = authorizationHeader.substring(AUTH_HEADER_PREFIX.length()).trim();
 

@@ -12,17 +12,17 @@ import java.util.Map;
 public class GlobalHeaderExceptionHandler {
 
     @ExceptionHandler(MissingRequestHeaderException.class)
-    @ResponseStatus(HttpStatus.UNAUTHORIZED) // 401
+    @ResponseStatus(HttpStatus.UNAUTHORIZED) 
     public Map<String, Object> missingHeader(MissingRequestHeaderException ex) {
-        String headerName = ex.getHeaderName(); // örn: "Authorization"
-        // Authorization eksikse 401 + tutarlı kod
+        String headerName = ex.getHeaderName(); 
+
         if ("Authorization".equalsIgnoreCase(headerName)) {
             return Map.of(
                     "mesaj", "Authorization header zorunludur.",
                     "kod", "TOKEN_HEADER_MISSING_401"
             );
         }
-        // Diğer olası zorunlu header'lar için genel cevap
+
         return Map.of(
                 "mesaj", "Zorunlu header eksik: " + headerName,
                 "kod", "HEADER_MISSING_401"

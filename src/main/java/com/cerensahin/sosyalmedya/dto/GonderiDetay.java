@@ -27,12 +27,11 @@ public class GonderiDetay {
         this.medyaTipi = g.getMedyaTipi().name();
         this.medyaBase64 = g.getMedyaBase64();
         this.olusturmaZamani = g.getOlusturmaZamani();
-        this.goruntulenmeSayisi = g.getGoruntulenmeSayisi(); // ✅ artık aynı tür
+        this.goruntulenmeSayisi = g.getGoruntulenmeSayisi(); 
         this.begeniSayisi = begeni;
         this.yorumSayisi = yorumSayisi;
         this.yorumlar = yorumlar;
     }
-
 
     public Long getId() { return id; }
     public Long getKullaniciId() { return kullaniciId; }

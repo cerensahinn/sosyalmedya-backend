@@ -8,7 +8,7 @@ public class KullaniciGorunum {
     private String soyad;
     private String kullaniciAdi;
     private String email;
-    private String rol; // DTO'da String olarak kalabilir (JSON uyumu için)
+    private String rol; 
 
     public KullaniciGorunum(Kullanici k) {
         this.id = k.getId();
@@ -16,10 +16,9 @@ public class KullaniciGorunum {
         this.soyad = k.getSoyad();
         this.kullaniciAdi = k.getKullaniciAdi();
         this.email = k.getEmail();
-        this.rol = k.getRol().name(); // ✅ ENUM'u String'e çevir
+        this.rol = k.getRol().name(); 
     }
 
-    // Getter'lar
     public Long getId() { return id; }
     public String getAd() { return ad; }
     public String getSoyad() { return soyad; }

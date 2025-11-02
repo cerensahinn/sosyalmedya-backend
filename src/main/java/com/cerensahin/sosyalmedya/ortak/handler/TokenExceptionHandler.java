@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 @RestControllerAdvice
-//hata yakalayıcı sınıf anlamına gelir
+
 public class TokenExceptionHandler {
 
     @ExceptionHandler(TokenGecersizException.class)

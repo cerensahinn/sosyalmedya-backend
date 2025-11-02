@@ -3,7 +3,7 @@ package com.cerensahin.sosyalmedya.service.impl;
 import com.cerensahin.sosyalmedya.entity.Gonderi;
 import com.cerensahin.sosyalmedya.entity.Kullanici;
 import com.cerensahin.sosyalmedya.entity.Yorum;
-import com.cerensahin.sosyalmedya.entity.Rol; // ✅ Enum Rol eklendi
+import com.cerensahin.sosyalmedya.entity.Rol;
 import com.cerensahin.sosyalmedya.ortak.exception.yorum.YorumBulunamadiException;
 import com.cerensahin.sosyalmedya.ortak.exception.yorum.YorumEkleGonderiBulunamadiException;
 import com.cerensahin.sosyalmedya.ortak.exception.yorum.YorumSilmeYetkiYokException;
@@ -49,7 +49,7 @@ public class YorumServiceImpl implements YorumService {
         Yorum y = yorumRepository.findById(yorumId)
                 .orElseThrow(() -> new YorumBulunamadiException(yorumId));
 
-        boolean admin = aktif.getRol() == Rol.ADMIN; // ✅ Enum kontrolü
+        boolean admin = aktif.getRol() == Rol.ADMIN;
         boolean yorumSahibi = y.getKullanici().getId().equals(aktif.getId());
         boolean postSahibi  = y.getGonderi().getKullanici().getId().equals(aktif.getId());
 

@@ -33,12 +33,11 @@ public class KullaniciController {
     }
 
     @Transactional
-    //burada özellikle transactional kullanıyoruz ki kullanıcı silindiğinde ona ait işlemler de silinsin
+
     @DeleteMapping("/users/me")
     public Map<String, Object> deleteMe(@RequestAttribute("aktifKullanici") Kullanici aktif) {
         return kullaniciService.deleteMe(aktif);
-        //Bu endpoint, aktif (giriş yapmış) kullanıcının kendi hesabını silmesini sağlıyor.
-        //Kullanıcı silinince ona ait tüm gönderi, yorum, beğeni kayıtları da birlikte siliniyor.
+
     }
 
     @Transactional
@@ -47,14 +46,13 @@ public class KullaniciController {
             @RequestAttribute("aktifKullanici") Kullanici aktif,
             @PathVariable Long id) {
         return kullaniciService.adminDelete(aktif, id);
-        //Bu endpoint, admin’in başka bir kullanıcıyı silmesini sağlar.
-        //Kullanıcı ve ona ait tüm içerikler (post, yorum, beğeni) silinir.
+
     }
 
     @GetMapping("/admin/users")
     public List<KullaniciGorunum> adminListAll(
             @RequestAttribute("aktifKullanici") Kullanici aktif) {
         return kullaniciService.adminListAll(aktif);
-        //bu metod, sistemdeki tüm kullanıcıları listelemek için admin’e özel bir endpoint.
+
     }
 }

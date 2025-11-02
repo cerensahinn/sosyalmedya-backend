@@ -34,7 +34,6 @@ public class Yorum {
         this.olusturmaZamani = LocalDateTime.now();
     }
 
-    // Getters
     public Long getId() { return id; }
     public Gonderi getGonderi() { return gonderi; }
     public Kullanici getKullanici() { return kullanici; }

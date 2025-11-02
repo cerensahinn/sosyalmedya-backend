@@ -25,7 +25,7 @@ public class GonderiServiceImpl implements GonderiService {
     private final YorumRepository yorumRepository;
     private final PostBegeniRepository postBegeniRepository;
 
-    private static final int MAX_BASE64_LEN = 66_000_000; // 50 MB video desteği
+    private static final int MAX_BASE64_LEN = 66_000_000;
 
     @Override
     public Page<GonderiGorunum> liste(int page, int size) {
@@ -76,7 +76,7 @@ public class GonderiServiceImpl implements GonderiService {
     @Override
     public Map<String, Object> guncelle(Kullanici aktif, Long id, GonderiOlusturIstegi body) {
         Gonderi g = findPostOr404(id);
-        checkOwnerOrAdmin(g, aktif); // ✅ enum kontrollü metod
+        checkOwnerOrAdmin(g, aktif);
 
         if (body.getIcerik() != null && !body.getIcerik().trim().isEmpty()) {
             g.setIcerik(body.getIcerik().trim());
@@ -107,7 +107,7 @@ public class GonderiServiceImpl implements GonderiService {
     @Override
     public Map<String, Object> sil(Kullanici aktif, Long id) {
         Gonderi g = findPostOr404(id);
-        checkOwnerOrAdmin(g, aktif); // ✅ enum kontrollü metod
+        checkOwnerOrAdmin(g, aktif);
 
         yorumRepository.deleteByGonderi_Id(id);
         postBegeniRepository.deleteByGonderi_Id(id);
@@ -164,7 +164,6 @@ public class GonderiServiceImpl implements GonderiService {
         return Map.of("mesaj", "Beğeni geri alındı.", "begeniSayisi", toplam);
     }
 
-    // ✅ Enum kontrollü özel metod
     private void checkOwnerOrAdmin(Gonderi g, Kullanici aktif) {
         boolean admin = aktif.getRol() == Rol.ADMIN;
         boolean owner = g.getKullanici().getId().equals(aktif.getId());

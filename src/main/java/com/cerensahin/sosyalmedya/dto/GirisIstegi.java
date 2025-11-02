@@ -1,6 +1,6 @@
 package com.cerensahin.sosyalmedya.dto;
 
-public class GirisIstegi { //Login Request
+public class GirisIstegi { 
     private final String email;
     private final String sifre;
 

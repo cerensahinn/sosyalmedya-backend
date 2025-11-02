@@ -32,7 +32,7 @@ public class BaslangicVerisi implements ApplicationRunner {
             admin.setKullaniciAdi(adminUsername);
             admin.setEmail(adminEmail.toLowerCase());
             admin.setSifreHash(SifreGizleme.sha256("Admin123!"));
-            admin.setRol(Rol.ADMIN); // Enum olarak atanıyor
+            admin.setRol(Rol.ADMIN); 
 
             kullaniciRepository.save(admin);
             System.out.println(">> [INIT] ADMIN oluşturuldu: " + adminEmail + " / Admin123!");
