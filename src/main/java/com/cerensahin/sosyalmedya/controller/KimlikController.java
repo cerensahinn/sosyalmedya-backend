@@ -30,8 +30,8 @@ public class KimlikController {
 
     @PostMapping("/logout")
     public ResponseEntity<Map<String, Object>> cikis(
-            @RequestHeader(value = "Authorization", required = false) String auth
+            @RequestHeader(value = "Authorization", required = true) String authorization // Artık zorunlu
     ) {
-        return ResponseEntity.ok(kimlikService.cikis(auth));
+        return ResponseEntity.ok(kimlikService.cikis(authorization));
     }
 }

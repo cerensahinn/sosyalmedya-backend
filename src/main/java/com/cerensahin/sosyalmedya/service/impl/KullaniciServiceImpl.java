@@ -4,6 +4,7 @@ import com.cerensahin.sosyalmedya.dto.KullaniciGorunum;
 import com.cerensahin.sosyalmedya.dto.ParolaGuncelleIstegi;
 import com.cerensahin.sosyalmedya.entity.ErisimTokeni;
 import com.cerensahin.sosyalmedya.entity.Kullanici;
+import com.cerensahin.sosyalmedya.entity.Rol; // ✅ Enum import edildi
 import com.cerensahin.sosyalmedya.ortak.SifreGizleme;
 import com.cerensahin.sosyalmedya.ortak.exception.kullanici.EskiSifreHataliException;
 import com.cerensahin.sosyalmedya.ortak.exception.kullanici.KullaniciBulunamadiException;
@@ -80,7 +81,7 @@ public class KullaniciServiceImpl implements KullaniciService {
     @Override
     @Transactional
     public Map<String, Object> adminDelete(Kullanici aktif, Long id) {
-        if (!"ADMIN".equalsIgnoreCase(aktif.getRol())) {
+        if (aktif.getRol() != Rol.ADMIN) { // ✅ Enum kontrolü
             throw new IllegalArgumentException("Bu işlem için ADMIN rolü gerekir.");
         }
         if (!kullaniciRepository.existsById(id)) {
@@ -97,7 +98,7 @@ public class KullaniciServiceImpl implements KullaniciService {
     @Override
     @Transactional(readOnly = true)
     public List<KullaniciGorunum> adminListAll(Kullanici aktif) {
-        if (!"ADMIN".equalsIgnoreCase(aktif.getRol())) {
+        if (aktif.getRol() != Rol.ADMIN) { // ✅ Enum kontrolü
             throw new IllegalArgumentException("Bu işlem için ADMIN rolü gerekir.");
         }
         return kullaniciRepository.findAll().stream()

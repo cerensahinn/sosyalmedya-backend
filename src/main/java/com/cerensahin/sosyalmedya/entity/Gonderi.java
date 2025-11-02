@@ -29,33 +29,34 @@ public class Gonderi {
     @Column(nullable = false, length = 20)
     private MedyaTipi medyaTipi = MedyaTipi.IMAGE;
 
-    @Column(nullable = false)
+    @Column(name = "goruntulenme_sayisi", nullable = false)
+    private long goruntulenmeSayisi = 0;
+
+    @Column(name = "olusturma_zamani", nullable = false, updatable = false)
     private LocalDateTime olusturmaZamani = LocalDateTime.now();
 
-    @Column(nullable = false)
-    private int goruntulenmeSayisi = 0;
-
-    protected Gonderi() { }
+    public Gonderi() {}
 
     public Gonderi(Kullanici kullanici, String icerik, String medyaUrl, MedyaTipi medyaTipi) {
         this.kullanici = kullanici;
         this.icerik = icerik;
         this.medyaUrl = medyaUrl;
-        this.medyaTipi = (medyaTipi != null) ? medyaTipi : MedyaTipi.IMAGE;
+        this.medyaTipi = medyaTipi;
+        this.olusturmaZamani = LocalDateTime.now();
     }
 
     public Long getId() { return id; }
     public Kullanici getKullanici() { return kullanici; }
+    public void setKullanici(Kullanici kullanici) { this.kullanici = kullanici; }
     public String getIcerik() { return icerik; }
-    public String getMedyaUrl() { return medyaUrl; }
-    public String getMedyaBase64() { return medyaBase64; }
-    public MedyaTipi getMedyaTipi() { return medyaTipi; }
-    public LocalDateTime getOlusturmaZamani() { return olusturmaZamani; }
-    public int getGoruntulenmeSayisi() { return goruntulenmeSayisi; }
-
     public void setIcerik(String icerik) { this.icerik = icerik; }
+    public String getMedyaUrl() { return medyaUrl; }
     public void setMedyaUrl(String medyaUrl) { this.medyaUrl = medyaUrl; }
+    public String getMedyaBase64() { return medyaBase64; }
     public void setMedyaBase64(String medyaBase64) { this.medyaBase64 = medyaBase64; }
+    public MedyaTipi getMedyaTipi() { return medyaTipi; }
     public void setMedyaTipi(MedyaTipi medyaTipi) { this.medyaTipi = medyaTipi; }
-    public void setGoruntulenmeSayisi(int goruntulenmeSayisi) { this.goruntulenmeSayisi = goruntulenmeSayisi; }
+    public long getGoruntulenmeSayisi() { return goruntulenmeSayisi; }
+    public void setGoruntulenmeSayisi(long goruntulenmeSayisi) { this.goruntulenmeSayisi = goruntulenmeSayisi; }
+    public LocalDateTime getOlusturmaZamani() { return olusturmaZamani; }
 }

@@ -2,12 +2,8 @@ package com.cerensahin.sosyalmedya.service.impl;
 
 import com.cerensahin.sosyalmedya.dto.*;
 import com.cerensahin.sosyalmedya.entity.*;
-import com.cerensahin.sosyalmedya.ortak.exception.gonderi.BegeniZatenVarException;
-import com.cerensahin.sosyalmedya.ortak.exception.gonderi.BegeniBulunamadiException;
-import com.cerensahin.sosyalmedya.ortak.exception.gonderi.GonderiBulunamadiException;
-import com.cerensahin.sosyalmedya.ortak.exception.gonderi.GonderiIslemYetkisizException;
-import com.cerensahin.sosyalmedya.ortak.exception.medya.MedyaCokBuyukException;
-import com.cerensahin.sosyalmedya.ortak.exception.medya.MedyaGecersizException;
+import com.cerensahin.sosyalmedya.ortak.exception.gonderi.*;
+import com.cerensahin.sosyalmedya.ortak.exception.medya.*;
 import com.cerensahin.sosyalmedya.ortak.exception.yorum.YorumEkleGonderiBulunamadiException;
 import com.cerensahin.sosyalmedya.repository.*;
 import com.cerensahin.sosyalmedya.service.GonderiService;
@@ -29,8 +25,7 @@ public class GonderiServiceImpl implements GonderiService {
     private final YorumRepository yorumRepository;
     private final PostBegeniRepository postBegeniRepository;
 
-    private static final int MAX_BASE64_LEN = 7_000_000;
-
+    private static final int MAX_BASE64_LEN = 66_000_000; // 50 MB video desteği
 
     @Override
     public Page<GonderiGorunum> liste(int page, int size) {
@@ -53,9 +48,9 @@ public class GonderiServiceImpl implements GonderiService {
         var yorumPage = yorumRepository
                 .findByGonderi_IdOrderByOlusturmaZamaniAsc(id, PageRequest.of(page, size))
                 .map(YorumGorunum::new);
+
         return new GonderiDetay(g, begeni, yorumPage.getTotalElements(), yorumPage.getContent());
     }
-
 
     @Override
     public Map<String, Object> olustur(Kullanici aktif, GonderiOlusturIstegi body) {
@@ -64,7 +59,6 @@ public class GonderiServiceImpl implements GonderiService {
         }
 
         MedyaTipi tip = parseMedyaTipi(body.getMedyaTipi());
-
         Gonderi g = new Gonderi(aktif, body.getIcerik().trim(), body.getMedyaUrl(), tip);
 
         if (body.getMedyaBase64() != null && !body.getMedyaBase64().isBlank()) {
@@ -79,11 +73,10 @@ public class GonderiServiceImpl implements GonderiService {
         return Map.of("mesaj", "Gönderi oluşturuldu.", "postId", g.getId());
     }
 
-
     @Override
     public Map<String, Object> guncelle(Kullanici aktif, Long id, GonderiOlusturIstegi body) {
         Gonderi g = findPostOr404(id);
-        checkOwnerOrAdmin(g, aktif);
+        checkOwnerOrAdmin(g, aktif); // ✅ enum kontrollü metod
 
         if (body.getIcerik() != null && !body.getIcerik().trim().isEmpty()) {
             g.setIcerik(body.getIcerik().trim());
@@ -111,11 +104,10 @@ public class GonderiServiceImpl implements GonderiService {
         return Map.of("mesaj", id + " ID'li Gönderi güncellendi.");
     }
 
-
     @Override
     public Map<String, Object> sil(Kullanici aktif, Long id) {
         Gonderi g = findPostOr404(id);
-        checkOwnerOrAdmin(g, aktif);
+        checkOwnerOrAdmin(g, aktif); // ✅ enum kontrollü metod
 
         yorumRepository.deleteByGonderi_Id(id);
         postBegeniRepository.deleteByGonderi_Id(id);
@@ -123,15 +115,13 @@ public class GonderiServiceImpl implements GonderiService {
         return Map.of("mesaj", "Gönderi silindi.");
     }
 
-
     @Override
     public Map<String, Object> view(Long id) {
         Gonderi g = findPostOr404(id);
         g.setGoruntulenmeSayisi(g.getGoruntulenmeSayisi() + 1);
         gonderiRepository.save(g);
-        return Map.of("mesaj", id+ " ID'li Gönderinin Görüntülenme sayısı arttı.", "goruntulenmeSayisi", g.getGoruntulenmeSayisi());
+        return Map.of("mesaj", id + " ID'li Gönderinin Görüntülenme sayısı arttı.", "goruntulenmeSayisi", g.getGoruntulenmeSayisi());
     }
-
 
     @Override
     public Map<String, Object> yorumEkle(Kullanici aktif, Long gonderiId, String icerik) {
@@ -151,7 +141,6 @@ public class GonderiServiceImpl implements GonderiService {
                 .findByGonderi_IdOrderByOlusturmaZamaniAsc(gonderiId, PageRequest.of(page, size))
                 .map(YorumGorunum::new);
     }
-
 
     @Override
     public Map<String, Object> begen(Kullanici aktif, Long gonderiId) {
@@ -175,16 +164,16 @@ public class GonderiServiceImpl implements GonderiService {
         return Map.of("mesaj", "Beğeni geri alındı.", "begeniSayisi", toplam);
     }
 
+    // ✅ Enum kontrollü özel metod
+    private void checkOwnerOrAdmin(Gonderi g, Kullanici aktif) {
+        boolean admin = aktif.getRol() == Rol.ADMIN;
+        boolean owner = g.getKullanici().getId().equals(aktif.getId());
+        if (!admin && !owner) throw new GonderiIslemYetkisizException(g.getId());
+    }
 
     private Gonderi findPostOr404(Long id) {
         return gonderiRepository.findById(id)
                 .orElseThrow(() -> new GonderiBulunamadiException(id));
-    }
-
-    private void checkOwnerOrAdmin(Gonderi g, Kullanici aktif) {
-        boolean admin = "ADMIN".equalsIgnoreCase(aktif.getRol());
-        boolean owner = g.getKullanici().getId().equals(aktif.getId());
-        if (!admin && !owner) throw new GonderiIslemYetkisizException(g.getId());
     }
 
     private MedyaTipi parseMedyaTipi(String tipStr) {

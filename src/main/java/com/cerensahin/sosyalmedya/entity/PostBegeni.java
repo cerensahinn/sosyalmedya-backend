@@ -16,7 +16,9 @@ public class PostBegeni {
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "gonderi_id", nullable = false)
     private Gonderi gonderi;
-
+//optional = false → JPA düzeyinde iş kuralı (model seviyesi)
+//nullable = false → Veritabanı düzeyinde veri bütünlüğü (constraint)
+    //“Bu ilişki olmadan beğeni oluşturulamaz.” demektir. yani java da gonderi alanı null olamaz
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "kullanici_id", nullable = false)
     private Kullanici kullanici;

@@ -32,42 +32,37 @@ public class Kullanici {
     @Column(nullable = false)
     private String sifreHash;
 
-    @Column(nullable = false)
-    private String rol;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 20)
+    private Rol rol = Rol.USER;
 
-    @Column(nullable = false)
+    @Column(name = "olusturma_zamani", nullable = false, updatable = false)
     private LocalDateTime olusturmaZamani = LocalDateTime.now();
 
     public Kullanici() {}
 
-    public Kullanici(String ad, String soyad, String kullaniciAdi, String email, String sifreHash, String rol) {
+    public Kullanici(String ad, String soyad, String kullaniciAdi, String email, String sifreHash, Rol rol) {
         this.ad = ad;
         this.soyad = soyad;
         this.kullaniciAdi = kullaniciAdi;
         this.email = email;
         this.sifreHash = sifreHash;
         this.rol = rol;
+        this.olusturmaZamani = LocalDateTime.now();
     }
 
     public Long getId() { return id; }
-
     public String getAd() { return ad; }
     public void setAd(String ad) { this.ad = ad; }
-
     public String getSoyad() { return soyad; }
     public void setSoyad(String soyad) { this.soyad = soyad; }
-
     public String getKullaniciAdi() { return kullaniciAdi; }
     public void setKullaniciAdi(String kullaniciAdi) { this.kullaniciAdi = kullaniciAdi; }
-
     public String getEmail() { return email; }
     public void setEmail(String email) { this.email = email; }
-
     public String getSifreHash() { return sifreHash; }
-    public void setSifreHash(String sifre) { this.sifreHash = sifre; }
-
-    public String getRol() { return rol; }
-    public void setRol(String rol) { this.rol = rol; }
-
+    public void setSifreHash(String sifreHash) { this.sifreHash = sifreHash; }
+    public Rol getRol() { return rol; }
+    public void setRol(Rol rol) { this.rol = rol; }
     public LocalDateTime getOlusturmaZamani() { return olusturmaZamani; }
 }

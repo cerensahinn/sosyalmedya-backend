@@ -1,6 +1,7 @@
 package com.cerensahin.sosyalmedya.baslat;
 
 import com.cerensahin.sosyalmedya.entity.Kullanici;
+import com.cerensahin.sosyalmedya.entity.Rol;
 import com.cerensahin.sosyalmedya.repository.KullaniciRepository;
 import com.cerensahin.sosyalmedya.ortak.SifreGizleme;
 import org.springframework.boot.ApplicationArguments;
@@ -22,12 +23,7 @@ public class BaslangicVerisi implements ApplicationRunner {
         final String adminUsername = "admin";
 
         boolean emailYok = kullaniciRepository.findByEmail(adminEmail).isEmpty();
-        boolean usernameYok = true;
-        try {
-            usernameYok = !kullaniciRepository.existsByKullaniciAdi(adminUsername);
-        } catch (Exception ignored) {
-
-        }
+        boolean usernameYok = !kullaniciRepository.existsByKullaniciAdi(adminUsername);
 
         if (emailYok && usernameYok) {
             Kullanici admin = new Kullanici();
@@ -36,7 +32,7 @@ public class BaslangicVerisi implements ApplicationRunner {
             admin.setKullaniciAdi(adminUsername);
             admin.setEmail(adminEmail.toLowerCase());
             admin.setSifreHash(SifreGizleme.sha256("Admin123!"));
-            admin.setRol("ADMIN");
+            admin.setRol(Rol.ADMIN); // Enum olarak atanıyor
 
             kullaniciRepository.save(admin);
             System.out.println(">> [INIT] ADMIN oluşturuldu: " + adminEmail + " / Admin123!");

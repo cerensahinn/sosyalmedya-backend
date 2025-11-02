@@ -11,46 +11,38 @@ public class ErisimTokeni {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "kullanici_id", nullable = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "kullanici_id")
     private Kullanici kullanici;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = true, length = 120)
     private String deger;
 
-    @Column(nullable = false)
-    private LocalDateTime olusturmaZamani;
-    @Column(nullable = false)
+    @Column(name = "olusturma_zamani", nullable = false, updatable = false)
+    private LocalDateTime olusturmaZamani = LocalDateTime.now();
+
+    @Column(name = "son_kullanma_zamani", nullable = false)
     private LocalDateTime sonKullanmaZamani;
 
     @Column(nullable = false)
     private boolean aktif = true;
 
-    public ErisimTokeni() { }
+    public ErisimTokeni() {}
 
-    public ErisimTokeni(Kullanici kullanici, String deger,
-                        LocalDateTime olusturmaZamani, LocalDateTime sonKullanmaZamani) {
+    public ErisimTokeni(Kullanici kullanici, String deger, LocalDateTime olusturmaZamani, LocalDateTime sonKullanmaZamani) {
         this.kullanici = kullanici;
         this.deger = deger;
-        this.olusturmaZamani = olusturmaZamani;
+        this.olusturmaZamani = olusturmaZamani != null ? olusturmaZamani : LocalDateTime.now();
         this.sonKullanmaZamani = sonKullanmaZamani;
         this.aktif = true;
     }
 
+    // Getters and Setters
     public Long getId() { return id; }
-
     public Kullanici getKullanici() { return kullanici; }
-    public void setKullanici(Kullanici kullanici) { this.kullanici = kullanici; }
-
     public String getDeger() { return deger; }
-    public void setDeger(String deger) { this.deger = deger; }
-
     public LocalDateTime getOlusturmaZamani() { return olusturmaZamani; }
-    public void setOlusturmaZamani(LocalDateTime olusturmaZamani) { this.olusturmaZamani = olusturmaZamani; }
-
     public LocalDateTime getSonKullanmaZamani() { return sonKullanmaZamani; }
-    public void setSonKullanmaZamani(LocalDateTime sonKullanmaZamani) { this.sonKullanmaZamani = sonKullanmaZamani; }
-
     public boolean isAktif() { return aktif; }
     public void setAktif(boolean aktif) { this.aktif = aktif; }
 }
